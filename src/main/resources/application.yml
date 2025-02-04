@@ -1,0 +1,21 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: search-service
+          uri: lb://search-service
+          predicates:
+            - Path=/search/**
+      discovery:
+        locator:
+          enabled: true # Enable service discovery
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery-server:8761/eureka/ # To run it in local use localhost instead of discovery-server
